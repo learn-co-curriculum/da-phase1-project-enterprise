@@ -1,34 +1,26 @@
-# EDA with Pandas - Cumulative Lab
+# Phase 1 Project
 
-## Introduction
+You've made it all the way through the first phase of this course -- take a minute to celebrate your awesomeness!
 
-In this section, you've learned a lot about importing, cleaning up, analyzing (using descriptive statistics) and visualizing data. In this cumulative lab, you'll get a chance to practice all of these skills with the Ames Housing dataset, which contains information about home sales in Ames, Iowa between 2006 and 2010.
+Now you will put your new skills to use with a large end-of-Phase project.
 
-## Objectives
+## Project Overview
 
-You will be able to:
+For this project, you will use descriptive statistics and data visualization to produce a report about the provided dataset.
 
-* Practice loading data with pandas
-* Practice calculating measures of centrality and dispersion with pandas
-* Practice creating subsets of data with pandas
-* Practice using data visualizations to explore data, and interpreting those visualizations
-* Perform a full exploratory data analysis process to gain insight about a dataset 
+### The Data
 
-## Your Task: Explore the Ames Housing Dataset with Pandas
+This project uses the Ames Housing dataset, which contains information about home sales in Ames, Iowa between 2006 and 2010.
 
-![aerial photo of a neighborhood](images/neighborhood_aerial.jpg)
+![aerial photo of a neighborhood](https://github.com/learn-co-curriculum/da-phase1-project-enterprise/raw/main/images/neighborhood_aerial.jpg)
 
 Photo by <a href="https://unsplash.com/@mattdonders?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Donders</a> on <a href="/@mattdonders?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-
-
-### Data Understanding
-
 Each record (row) in this dataset represents a home that was sold in Ames, IA.
 
-Each feature (column) in this dataset is some attribute of that home sale. You can view the file `data/data_description.txt` in this repository for a full explanation of all variables in this dataset — 80 columns in total.
+Each feature (column) in this dataset is some attribute of that home sale. You can scroll to the bottom of this project description for a full explanation of all variables in this dataset — 80 columns in total.
 
-We are going to focus on the following features:
+We recommend that you focus on the following features:
 
 **SalePrice**: `Sale price of the house in dollars`
 
@@ -61,358 +53,631 @@ We are going to focus on the following features:
 
 ### Requirements
 
-In this lab you will use your data munging and visualization skills to conduct an exploratory analysis of the dataset.
+#### 1. Complete a Polished Analysis using Jupyter Notebook
 
-#### 1. Load the Dataset with Pandas
+When you click on the link to open this project in a new tab, you will see a Jupyter Notebook that already has some text and code filled in for you.
 
-Import pandas with the standard alias `pd` and load the data into a dataframe with the standard name `df`.
+In both the Markdown and code cells, you will see the word "TODO" in various places. Your task is to go through and follow the instructions provided by those "TODO"s **then remove the TODO text**. A polished, final notebook should not contain "TODO" anywhere. One point on the final rubric will be determined by whether you successfully replaced these lines with actual analysis (Markdown or code).
 
-#### 2. Explore Data Distributions
+#### 2. Display Basic Properties of the Data
 
-Produce summary statistics, visualizations, and interpretive text describing the distributions of `SalePrice`, `TotRmsAbvGrd`, and `OverallCond`.
+Use the `pandas` methods you have learned so far to inspect the contents of `df`. How many rows and columns are there? What are the columns? Do you have any missing data? Is there anything else you need to know before you start exploring specific columns?
 
-#### 3. Explore Differences between Subsets
+#### 3. Explore Distribution of `SalePrice`
 
-Separate the data into subsets based on `OverallCond`, then demonstrate how this split impacts the distribution of `SalePrice`.
+The overall purpose of this analysis is to understand how different factors seem to influence home sale price, which is represented by the `SalePrice` column.
 
-#### 4. Explore Correlations
+Write code to select this column and produce a plot that shows its distribution.
 
-Find the features that have the strongest positive and negative correlations with `SalePrice`, and produce plots representing these relationships.
+***Hint:*** Typically the go-to visualization to show a distribution is a *histogram*. See the documentation for [plotting histograms](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.hist.html), [customizing axes](https://matplotlib.org/stable/api/axes_api.html#axis-labels-title-and-legend), and [plotting vertical lines](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.axvline.html#matplotlib.axes.Axes.axvline) as needed.
 
-#### 5. Engineer and Explore a New Feature
+Your plot should end up looking something like this (although you do not need to match this precisely):
 
-Create a new feature `Age`, which represents the difference between the year sold and the year built, and plot the relationship between the age and sale price.
+![distribution of sale prices](https://github.com/learn-co-curriculum/dsc-pandas-eda-lab/raw/solution/index_files/index_15_0.png)
 
-## 1. Load the Dataset with Pandas
+Make sure you also fill out the Markdown cell below this plot to interpret what you see. Some things you might want to comment on include the central tendency (mean or median), the spread, the skew, and any possible outliers.
 
-In the cell below, import:
-* `pandas` with the standard alias `pd`
-* `matplotlib.pyplot` with the standard alias `plt`
+#### 4. Explore Differences between Subsets
 
-And set `%matplotlib inline` so the graphs will display immediately below the cell that creates them.
+Now, split the data into two or more subsets, and plot the `SalePrice` distributions for each of those subsets.
 
+For example, you might want to use the `OverallCond` (overall condition) column. The overwhelming majority of homes in the dataset have an `OverallCond` of 5 (average). So we might split the data into `below_average_condition` (`OverallCond` of less than 5), `average_condition` (`OverallCond` of 5), and `above_average_condition` (`OverallCond` of more than 5). Then we can either create three separate plots that show the sale price, or one plot that uses color to distinguish between the categories.
 
-```python
-# Your code here
-```
+Plotting all three categories at once might look something like this:
 
-Now, use pandas to open the file located at `data/ames.csv` ([documentation here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html)). Specify the argument `index_col=0` in order to avoid creating an extra `Id` column. Name the resulting dataframe `df`.
+![distribution of sale prices grouped by condition](https://github.com/learn-co-curriculum/dsc-pandas-eda-lab/raw/solution/index_files/index_37_0.png)
 
+Note that you are free to choose a column other than `OverallCond` here. This is just an example. One alternative idea to consider is subsetting based on whether the home was remodeled, i.e. whether or not `YearBuilt` and `YearRemodAdd` are the same.
 
-```python
-# Your code here
-```
+Make sure that you also fill out the Markdown cell below this plot to interpret what you see. How different are the `SalePrice` distributions between these subsets? Do you have any guesses of why we are seeing that difference?
 
-The following code checks that you loaded the data correctly:
+#### 5. Explore Correlation
 
+Choose a column (other than `SalePrice`) and investigate its correlation with `SalePrice`.
 
-```python
-# Run this cell without changes
+***Hint:*** `df.corr()['SalePrice']` will show you correlations between all of the columns and `SalePrice`. You can use that to find a column that seems to have a notable correlation.
 
-# Check that df is a dataframe
-assert type(df) == pd.DataFrame
+Once you have chosen a column and displayed its correlation, select that column and `SalePrice` to create a scatter plot. The selected column should be on the x-axis, and `SalePrice` should be on the y-axis.
 
-# Check that there are the correct number of rows
-assert df.shape[0] == 1460
+Make sure that you also fill out the Markdown cell below this plot to interpret what you see. Is the correlation positive or negative? Strong or weak? Does the strength of the correlation seem to change based on the value of `SalePrice`?
 
-# Check that there are the correct number of columns
-# (if this crashes, make sure you specified `index_col=0`)
-assert df.shape[1] == 80
-```
+#### 6. Engineer and Explore a New Feature
 
-Inspect the contents of the dataframe:
+Engineer a new feature (AKA create a new column) based on the values in two or more columns in the dataset.
 
+Some examples of columns you could engineer (or feel free to choose your own!) include:
 
-```python
-# Run this cell without changes
-df
-```
+* `Age` (age of home at time of sale): `YrSold` (year sold) - `YearBuilt` (year built)
+* `TotalBath` (total bathrooms): `BsmtFullBath` (basement full bathrooms) + `BsmtHalfBath` (basement half bathrooms) + `FullBath` (full bathrooms above grade) + `HalfBath` (half bathrooms above grade)
+* `PorchDeckSF` (total square feet area of porch and deck spaces): `WoodDeckSF` (wood deck area in square feet) + `OpenPorchSF` (open porch area in square feet) + `EnclosedPorch` (enclosed porch area in square feet) + `3SsnPorch` (three season porch area in square feet) + `ScreenPorch` (screen porch area in square feet)
 
+We recommend that you use a numeric column (not a categorical column) for this.
 
-```python
-# Run this cell without changes
-df.info()
-```
+Then use this new column to produce a scatter plot between that new column and `SalePrice`. For example, a scatter plot of `Age` vs. `SalePrice`.
 
-## 2. Explore Data Distributions
+Make sure that you also fill out the Markdown cell below this plot to interpret what you see. How does this new feature seem to be impacting `SalePrice`?
 
-Write code to produce histograms showing the distributions of `SalePrice`, `TotRmsAbvGrd`, and `OverallCond`.
+## Deliverables
 
-Each histogram should have appropriate title and axes labels, as well as a black vertical line indicating the mean of the dataset. See the documentation for [plotting histograms](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.hist.html), [customizing axes](https://matplotlib.org/stable/api/axes_api.html#axis-labels-title-and-legend), and [plotting vertical lines](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.axvline.html#matplotlib.axes.Axes.axvline) as needed.
+Your deliverable for this project is a **Jupyter Notebook** (`.ipynb` file). Click on the button to open the starter notebook in IllumiDesk, then edit the code and Markdown cells to complete the project requirements.
 
-### Sale Price
+Make sure you save your work regularly!
 
-In the cell below, produce a histogram for `SalePrice`.
+When you are ready to submit the project for grading, download the notebook and submit it using this Canvas assignment.
 
+## Grading
 
-```python
-# Your code here
-```
+The attached rubric will be used for grading. There are 10 total points for this project.
 
-Now, print out the mean, median, and standard deviation:
+To summarize, you get:
 
-
-```python
-# Your code here
-```
-
-In the cell below, interpret the above information.
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
-
-### Total Rooms Above Grade
-
-In the cell below, produce a histogram for `TotRmsAbvGrd`.
-
-
-```python
-# Your code here
-```
-
-Now, print out the mean, median, and standard deviation:
-
-
-```python
-# Your code here
-```
-
-In the cell below, interpret the above information.
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
-
-### Overall Condition
-
-In the cell below, produce a histogram for `OverallCond`.
-
-
-```python
-# Your code here
-```
-
-Now, print out the mean, median, and standard deviation:
-
-
-```python
-# Your code here
-```
-
-In the cell below, interpret the above information.
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
-
-## 3. Explore Differences between Subsets
-
-As you might have noted in the previous step, the overall condition of the house seems like we should treat it as more of a categorical variable, rather than a numeric variable.
-
-One useful way to explore a categorical variable is to create subsets of the full dataset based on that categorical variable, then plot their distributions based on some other variable. Since this dataset is traditionally used for predicting the sale price of a house, let's use `SalePrice` as that other variable.
-
-In the cell below, create three variables, each of which represents a record-wise subset of `df` (meaning, it has the same columns as `df`, but only some of the rows).
-
-* `below_average_condition`: home sales where the overall condition was less than 5
-* `average_condition`: home sales where the overall condition was exactly 5
-* `above_average_condition`: home sales where the overall condition was greater than 5
-
-
-```python
-# Replace None with appropriate code
-below_average_condition = None
-average_condition = None
-above_average_condition = None
-```
-
-The following code checks that you created the subsets correctly:
-
-
-```python
-# Run this cell without changes
-
-# Check that all of them still have 80 columns
-assert below_average_condition.shape[1] == 80
-assert average_condition.shape[1] == 80
-assert above_average_condition.shape[1] == 80
-
-# Check the numbers of rows of each subset
-assert below_average_condition.shape[0] == 88
-assert average_condition.shape[0] == 821
-assert above_average_condition.shape[0] == 551
-```
-
-The following code will produce a plot of the distributions of sale price for each of these subsets:
-
-
-```python
-# Run this cell without changes
-
-# Set up plot
-fig, ax = plt.subplots(figsize=(15,5))
-
-# Create custom bins so all are on the same scale
-bins = range(df["SalePrice"].min(), df["SalePrice"].max(), int(df["SalePrice"].median()) // 20)
-
-# Plot three histograms, with reduced opacity (alpha) so we
-# can see them overlapping
-ax.hist(
-    x=above_average_condition["SalePrice"],
-    label="above average condition",
-    bins=bins,
-    color="cyan",
-    alpha=0.5
-)
-ax.hist(
-    x=average_condition["SalePrice"],
-    label="average condition",
-    bins=bins,
-    color="gray",
-    alpha=0.3
-)
-ax.hist(
-    x=below_average_condition["SalePrice"],
-    label="below average condition",
-    bins=bins,
-    color="yellow",
-    alpha=0.5
-)
-
-# Customize labels
-ax.set_title("Distributions of Sale Price Grouped by Condition")
-ax.set_xlabel("Sale Price")
-ax.set_ylabel("Number of Houses")
-ax.legend();
-```
-
-Interpret the plot above. What does it tell us about these overall condition categories, and the relationship between overall condition and sale price? Is there anything surprising?
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
-
-## 4. Explore Correlations
-
-To understand more about what features of these homes lead to higher sale prices, let's look at some correlations. We'll return to using the full `df`, rather than the subsets.
-
-In the cell below, print out both the name of the column and the Pearson correlation for the column that is ***most positively correlated*** with `SalePrice` (other than `SalePrice`, which is perfectly correlated with itself).
-
-We'll only check the correlations with some kind of numeric data type.
-
-You can import additional libraries, although it is possible to do this just using pandas.
-
-
-```python
-# Your code here
-```
-
-Now, find the ***most negatively correlated*** column:
-
-
-```python
-# Your code here
-```
-
-Once you have your answer, edit the code below so that it produces a scatter plot of the relevant columns.
-
-
-```python
-# Replace None with appropriate code
-
-import seaborn as sns
-
-fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(15,5))
-
-# Plot distribution of column with highest correlation
-sns.boxplot(
-    x=None,
-    y=df["SalePrice"],
-    ax=ax1
-)
-# Plot distribution of column with most negative correlation
-sns.boxplot(
-    x=None,
-    y=df["SalePrice"],
-    ax=ax2
-)
-
-# Customize labels
-ax1.set_title(None)
-ax1.set_xlabel(None)
-ax1.set_ylabel("Sale Price")
-ax2.set_title(None)
-ax2.set_xlabel(None)
-ax2.set_ylabel("Sale Price");
-```
-
-Interpret the results below. Consult `data/data_description.txt` as needed.
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
-
-## 5. Engineer and Explore a New Feature
-
-Here the code is written for you, all you need to do is interpret it.
-
-We note that the data spans across several years of sales:
-
-
-```python
-# Run this cell without changes
-df["YrSold"].value_counts().sort_index()
-```
-
-Maybe we can learn something interesting from the age of the home when it was sold. This uses information from the `YrBuilt` and `YrSold` columns, but represents a truly distinct feature.
-
-
-```python
-# Run this cell without changes
-
-# Make a new column, Age
-df["Age"] = df["YrSold"] - df["YearBuilt"]
-
-# Set up plot
-fig, ax = plt.subplots(figsize=(15,5))
-
-# Plot Age vs. SalePrice
-ax.scatter(df["Age"], df["SalePrice"], alpha=0.3, color="green")
-ax.set_title("Home Age vs. Sale Price")
-ax.set_xlabel("Age of Home at Time of Sale")
-ax.set_ylabel("Sale Price");
-```
-
-Interpret this plot below:
-
-
-```python
-# Replace None with appropriate text
-"""
-None
-"""
-```
+* 1 point for submitting a **polished Jupyter Notebook**
+  * This means that you have replaced all of the "TODO" and "[Column]" text with appropriate code or Markdown
+* 1 point for **displaying the basic properties of the data**
+  * This means that you need to use at least one `pandas` method on `df`
+* 2 points for **exploring the distribution of `SalePrice`**
+  * 1 point for creating a plot
+  * 1 point for interpreting the plot
+* 2 points for **exploring the differences between subsets**
+  * 1 point for creating and plotting subsets
+  * 1 point for interpreting the plot
+* 2 points for **exploring correlation**
+  * 1 point for calculating the correlation and plotting a scatter plot
+  * 1 point for interpreting the plot
+* 2 points for **engineering and exploring a new feature**
+  * 1 point for creating the feature and plotting a scatter plot
+  * 1 point for interpreting the plot
 
 ## Summary
 
-Congratulations, you've completed an exploratory data analysis of a popular dataset! You saw how to inspect the distributions of individual columns, subsets of columns, correlations, and new engineered features.
+This project will give you a valuable opportunity to develop your data analysis skills using real-world data. The end-of-phase projects are a critical part of the program because they give you a chance to bring together all the skills you've learned, apply them to realistic projects, practice communication skills, and get feedback to help you improve. You've got this!
+
+## Appendix
+
+Below is the complete data description:
+
+```
+MSSubClass: Identifies the type of dwelling involved in the sale.	
+
+        20	1-STORY 1946 & NEWER ALL STYLES
+        30	1-STORY 1945 & OLDER
+        40	1-STORY W/FINISHED ATTIC ALL AGES
+        45	1-1/2 STORY - UNFINISHED ALL AGES
+        50	1-1/2 STORY FINISHED ALL AGES
+        60	2-STORY 1946 & NEWER
+        70	2-STORY 1945 & OLDER
+        75	2-1/2 STORY ALL AGES
+        80	SPLIT OR MULTI-LEVEL
+        85	SPLIT FOYER
+        90	DUPLEX - ALL STYLES AND AGES
+       120	1-STORY PUD (Planned Unit Development) - 1946 & NEWER
+       150	1-1/2 STORY PUD - ALL AGES
+       160	2-STORY PUD - 1946 & NEWER
+       180	PUD - MULTILEVEL - INCL SPLIT LEV/FOYER
+       190	2 FAMILY CONVERSION - ALL STYLES AND AGES
+
+MSZoning: Identifies the general zoning classification of the sale.
+		
+       A	Agriculture
+       C	Commercial
+       FV	Floating Village Residential
+       I	Industrial
+       RH	Residential High Density
+       RL	Residential Low Density
+       RP	Residential Low Density Park 
+       RM	Residential Medium Density
+	
+LotFrontage: Linear feet of street connected to property
+
+LotArea: Lot size in square feet
+
+Street: Type of road access to property
+
+       Grvl	Gravel	
+       Pave	Paved
+       	
+Alley: Type of alley access to property
+
+       Grvl	Gravel
+       Pave	Paved
+       NA 	No alley access
+		
+LotShape: General shape of property
+
+       Reg	Regular	
+       IR1	Slightly irregular
+       IR2	Moderately Irregular
+       IR3	Irregular
+       
+LandContour: Flatness of the property
+
+       Lvl	Near Flat/Level	
+       Bnk	Banked - Quick and significant rise from street grade to building
+       HLS	Hillside - Significant slope from side to side
+       Low	Depression
+		
+Utilities: Type of utilities available
+		
+       AllPub	All public Utilities (E,G,W,& S)	
+       NoSewr	Electricity, Gas, and Water (Septic Tank)
+       NoSeWa	Electricity and Gas Only
+       ELO	Electricity only	
+	
+LotConfig: Lot configuration
+
+       Inside	Inside lot
+       Corner	Corner lot
+       CulDSac	Cul-de-sac
+       FR2	Frontage on 2 sides of property
+       FR3	Frontage on 3 sides of property
+	
+LandSlope: Slope of property
+		
+       Gtl	Gentle slope
+       Mod	Moderate Slope	
+       Sev	Severe Slope
+	
+Neighborhood: Physical locations within Ames city limits
+
+       Blmngtn	Bloomington Heights
+       Blueste	Bluestem
+       BrDale	Briardale
+       BrkSide	Brookside
+       ClearCr	Clear Creek
+       CollgCr	College Creek
+       Crawfor	Crawford
+       Edwards	Edwards
+       Gilbert	Gilbert
+       IDOTRR	Iowa DOT and Rail Road
+       MeadowV	Meadow Village
+       Mitchel	Mitchell
+       Names	North Ames
+       NoRidge	Northridge
+       NPkVill	Northpark Villa
+       NridgHt	Northridge Heights
+       NWAmes	Northwest Ames
+       OldTown	Old Town
+       SWISU	South & West of Iowa State University
+       Sawyer	Sawyer
+       SawyerW	Sawyer West
+       Somerst	Somerset
+       StoneBr	Stone Brook
+       Timber	Timberland
+       Veenker	Veenker
+			
+Condition1: Proximity to various conditions
+	
+       Artery	Adjacent to arterial street
+       Feedr	Adjacent to feeder street	
+       Norm	Normal	
+       RRNn	Within 200' of North-South Railroad
+       RRAn	Adjacent to North-South Railroad
+       PosN	Near positive off-site feature--park, greenbelt, etc.
+       PosA	Adjacent to postive off-site feature
+       RRNe	Within 200' of East-West Railroad
+       RRAe	Adjacent to East-West Railroad
+	
+Condition2: Proximity to various conditions (if more than one is present)
+		
+       Artery	Adjacent to arterial street
+       Feedr	Adjacent to feeder street	
+       Norm	Normal	
+       RRNn	Within 200' of North-South Railroad
+       RRAn	Adjacent to North-South Railroad
+       PosN	Near positive off-site feature--park, greenbelt, etc.
+       PosA	Adjacent to postive off-site feature
+       RRNe	Within 200' of East-West Railroad
+       RRAe	Adjacent to East-West Railroad
+	
+BldgType: Type of dwelling
+		
+       1Fam	Single-family Detached	
+       2FmCon	Two-family Conversion; originally built as one-family dwelling
+       Duplx	Duplex
+       TwnhsE	Townhouse End Unit
+       TwnhsI	Townhouse Inside Unit
+	
+HouseStyle: Style of dwelling
+	
+       1Story	One story
+       1.5Fin	One and one-half story: 2nd level finished
+       1.5Unf	One and one-half story: 2nd level unfinished
+       2Story	Two story
+       2.5Fin	Two and one-half story: 2nd level finished
+       2.5Unf	Two and one-half story: 2nd level unfinished
+       SFoyer	Split Foyer
+       SLvl	Split Level
+	
+OverallQual: Rates the overall material and finish of the house
+
+       10	Very Excellent
+       9	Excellent
+       8	Very Good
+       7	Good
+       6	Above Average
+       5	Average
+       4	Below Average
+       3	Fair
+       2	Poor
+       1	Very Poor
+	
+OverallCond: Rates the overall condition of the house
+
+       10	Very Excellent
+       9	Excellent
+       8	Very Good
+       7	Good
+       6	Above Average	
+       5	Average
+       4	Below Average	
+       3	Fair
+       2	Poor
+       1	Very Poor
+		
+YearBuilt: Original construction date
+
+YearRemodAdd: Remodel date (same as construction date if no remodeling or additions)
+
+RoofStyle: Type of roof
+
+       Flat	Flat
+       Gable	Gable
+       Gambrel	Gabrel (Barn)
+       Hip	Hip
+       Mansard	Mansard
+       Shed	Shed
+		
+RoofMatl: Roof material
+
+       ClyTile	Clay or Tile
+       CompShg	Standard (Composite) Shingle
+       Membran	Membrane
+       Metal	Metal
+       Roll	Roll
+       Tar&Grv	Gravel & Tar
+       WdShake	Wood Shakes
+       WdShngl	Wood Shingles
+		
+Exterior1st: Exterior covering on house
+
+       AsbShng	Asbestos Shingles
+       AsphShn	Asphalt Shingles
+       BrkComm	Brick Common
+       BrkFace	Brick Face
+       CBlock	Cinder Block
+       CemntBd	Cement Board
+       HdBoard	Hard Board
+       ImStucc	Imitation Stucco
+       MetalSd	Metal Siding
+       Other	Other
+       Plywood	Plywood
+       PreCast	PreCast	
+       Stone	Stone
+       Stucco	Stucco
+       VinylSd	Vinyl Siding
+       Wd Sdng	Wood Siding
+       WdShing	Wood Shingles
+	
+Exterior2nd: Exterior covering on house (if more than one material)
+
+       AsbShng	Asbestos Shingles
+       AsphShn	Asphalt Shingles
+       BrkComm	Brick Common
+       BrkFace	Brick Face
+       CBlock	Cinder Block
+       CemntBd	Cement Board
+       HdBoard	Hard Board
+       ImStucc	Imitation Stucco
+       MetalSd	Metal Siding
+       Other	Other
+       Plywood	Plywood
+       PreCast	PreCast
+       Stone	Stone
+       Stucco	Stucco
+       VinylSd	Vinyl Siding
+       Wd Sdng	Wood Siding
+       WdShing	Wood Shingles
+	
+MasVnrType: Masonry veneer type
+
+       BrkCmn	Brick Common
+       BrkFace	Brick Face
+       CBlock	Cinder Block
+       None	None
+       Stone	Stone
+	
+MasVnrArea: Masonry veneer area in square feet
+
+ExterQual: Evaluates the quality of the material on the exterior 
+		
+       Ex	Excellent
+       Gd	Good
+       TA	Average/Typical
+       Fa	Fair
+       Po	Poor
+		
+ExterCond: Evaluates the present condition of the material on the exterior
+		
+       Ex	Excellent
+       Gd	Good
+       TA	Average/Typical
+       Fa	Fair
+       Po	Poor
+		
+Foundation: Type of foundation
+		
+       BrkTil	Brick & Tile
+       CBlock	Cinder Block
+       PConc	Poured Contrete	
+       Slab	Slab
+       Stone	Stone
+       Wood	Wood
+		
+BsmtQual: Evaluates the height of the basement
+
+       Ex	Excellent (100+ inches)	
+       Gd	Good (90-99 inches)
+       TA	Typical (80-89 inches)
+       Fa	Fair (70-79 inches)
+       Po	Poor (<70 inches
+       NA	No Basement
+		
+BsmtCond: Evaluates the general condition of the basement
+
+       Ex	Excellent
+       Gd	Good
+       TA	Typical - slight dampness allowed
+       Fa	Fair - dampness or some cracking or settling
+       Po	Poor - Severe cracking, settling, or wetness
+       NA	No Basement
+	
+BsmtExposure: Refers to walkout or garden level walls
+
+       Gd	Good Exposure
+       Av	Average Exposure (split levels or foyers typically score average or above)	
+       Mn	Mimimum Exposure
+       No	No Exposure
+       NA	No Basement
+	
+BsmtFinType1: Rating of basement finished area
+
+       GLQ	Good Living Quarters
+       ALQ	Average Living Quarters
+       BLQ	Below Average Living Quarters	
+       Rec	Average Rec Room
+       LwQ	Low Quality
+       Unf	Unfinshed
+       NA	No Basement
+		
+BsmtFinSF1: Type 1 finished square feet
+
+BsmtFinType2: Rating of basement finished area (if multiple types)
+
+       GLQ	Good Living Quarters
+       ALQ	Average Living Quarters
+       BLQ	Below Average Living Quarters	
+       Rec	Average Rec Room
+       LwQ	Low Quality
+       Unf	Unfinshed
+       NA	No Basement
+
+BsmtFinSF2: Type 2 finished square feet
+
+BsmtUnfSF: Unfinished square feet of basement area
+
+TotalBsmtSF: Total square feet of basement area
+
+Heating: Type of heating
+		
+       Floor	Floor Furnace
+       GasA	Gas forced warm air furnace
+       GasW	Gas hot water or steam heat
+       Grav	Gravity furnace	
+       OthW	Hot water or steam heat other than gas
+       Wall	Wall furnace
+		
+HeatingQC: Heating quality and condition
+
+       Ex	Excellent
+       Gd	Good
+       TA	Average/Typical
+       Fa	Fair
+       Po	Poor
+		
+CentralAir: Central air conditioning
+
+       N	No
+       Y	Yes
+		
+Electrical: Electrical system
+
+       SBrkr	Standard Circuit Breakers & Romex
+       FuseA	Fuse Box over 60 AMP and all Romex wiring (Average)	
+       FuseF	60 AMP Fuse Box and mostly Romex wiring (Fair)
+       FuseP	60 AMP Fuse Box and mostly knob & tube wiring (poor)
+       Mix	Mixed
+		
+1stFlrSF: First Floor square feet
+ 
+2ndFlrSF: Second floor square feet
+
+LowQualFinSF: Low quality finished square feet (all floors)
+
+GrLivArea: Above grade (ground) living area square feet
+
+BsmtFullBath: Basement full bathrooms
+
+BsmtHalfBath: Basement half bathrooms
+
+FullBath: Full bathrooms above grade
+
+HalfBath: Half baths above grade
+
+Bedroom: Bedrooms above grade (does NOT include basement bedrooms)
+
+KitchenAbvGr: Kitchens above grade
+
+KitchenQual: Kitchen quality
+
+       Ex	Excellent
+       Gd	Good
+       TA	Typical/Average
+       Fa	Fair
+       Po	Poor
+       	
+TotRmsAbvGrd: Total rooms above grade (does not include bathrooms)
+
+Functional: Home functionality (Assume typical unless deductions are warranted)
+
+       Typ	Typical Functionality
+       Min1	Minor Deductions 1
+       Min2	Minor Deductions 2
+       Mod	Moderate Deductions
+       Maj1	Major Deductions 1
+       Maj2	Major Deductions 2
+       Sev	Severely Damaged
+       Sal	Salvage only
+		
+Fireplaces: Number of fireplaces
+
+FireplaceQu: Fireplace quality
+
+       Ex	Excellent - Exceptional Masonry Fireplace
+       Gd	Good - Masonry Fireplace in main level
+       TA	Average - Prefabricated Fireplace in main living area or Masonry Fireplace in basement
+       Fa	Fair - Prefabricated Fireplace in basement
+       Po	Poor - Ben Franklin Stove
+       NA	No Fireplace
+		
+GarageType: Garage location
+		
+       2Types	More than one type of garage
+       Attchd	Attached to home
+       Basment	Basement Garage
+       BuiltIn	Built-In (Garage part of house - typically has room above garage)
+       CarPort	Car Port
+       Detchd	Detached from home
+       NA	No Garage
+		
+GarageYrBlt: Year garage was built
+		
+GarageFinish: Interior finish of the garage
+
+       Fin	Finished
+       RFn	Rough Finished	
+       Unf	Unfinished
+       NA	No Garage
+		
+GarageCars: Size of garage in car capacity
+
+GarageArea: Size of garage in square feet
+
+GarageQual: Garage quality
+
+       Ex	Excellent
+       Gd	Good
+       TA	Typical/Average
+       Fa	Fair
+       Po	Poor
+       NA	No Garage
+		
+GarageCond: Garage condition
+
+       Ex	Excellent
+       Gd	Good
+       TA	Typical/Average
+       Fa	Fair
+       Po	Poor
+       NA	No Garage
+		
+PavedDrive: Paved driveway
+
+       Y	Paved 
+       P	Partial Pavement
+       N	Dirt/Gravel
+		
+WoodDeckSF: Wood deck area in square feet
+
+OpenPorchSF: Open porch area in square feet
+
+EnclosedPorch: Enclosed porch area in square feet
+
+3SsnPorch: Three season porch area in square feet
+
+ScreenPorch: Screen porch area in square feet
+
+PoolArea: Pool area in square feet
+
+PoolQC: Pool quality
+		
+       Ex	Excellent
+       Gd	Good
+       TA	Average/Typical
+       Fa	Fair
+       NA	No Pool
+		
+Fence: Fence quality
+		
+       GdPrv	Good Privacy
+       MnPrv	Minimum Privacy
+       GdWo	Good Wood
+       MnWw	Minimum Wood/Wire
+       NA	No Fence
+	
+MiscFeature: Miscellaneous feature not covered in other categories
+		
+       Elev	Elevator
+       Gar2	2nd Garage (if not described in garage section)
+       Othr	Other
+       Shed	Shed (over 100 SF)
+       TenC	Tennis Court
+       NA	None
+		
+MiscVal: $Value of miscellaneous feature
+
+MoSold: Month Sold (MM)
+
+YrSold: Year Sold (YYYY)
+
+SaleType: Type of sale
+		
+       WD 	Warranty Deed - Conventional
+       CWD	Warranty Deed - Cash
+       VWD	Warranty Deed - VA Loan
+       New	Home just constructed and sold
+       COD	Court Officer Deed/Estate
+       Con	Contract 15% Down payment regular terms
+       ConLw	Contract Low Down payment and low interest
+       ConLI	Contract Low Interest
+       ConLD	Contract Low Down
+       Oth	Other
+		
+SaleCondition: Condition of sale
+
+       Normal	Normal Sale
+       Abnorml	Abnormal Sale -  trade, foreclosure, short sale
+       AdjLand	Adjoining Land Purchase
+       Alloca	Allocation - two linked properties with separate deeds, typically condo with a garage unit	
+       Family	Sale between family members
+       Partial	Home was not completed when last assessed (associated with New Homes)
+```
